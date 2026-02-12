@@ -2,10 +2,11 @@
 
 import Link from 'next/link';
 import { ShoppingCart, Palette } from 'lucide-react';
-import { useState } from 'react';
+import { useCart } from '@/context/CartContext';
 
 export default function Navbar() {
-  const [cartCount, setCartCount] = useState(0);
+  const { getItemCount } = useCart();
+  const cartCount = getItemCount();
 
   return (
     <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
@@ -15,7 +16,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center space-x-2 group">
             <Palette className="h-8 w-8 text-indigo-600 group-hover:text-indigo-700 transition" />
             <span className="text-xl font-bold text-gray-900">
-              Galéria Umenia
+              Tomáš Gonda Art
             </span>
           </Link>
 
