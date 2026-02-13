@@ -3,10 +3,13 @@
 import Link from 'next/link';
 import { ShoppingCart, Palette } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { useHasMounted } from '@/hooks/useHasMounted';
 
 export default function Navbar() {
-  const { getItemCount } = useCart();
-  const cartCount = getItemCount();
+  const { items } = useCart();
+  const mounted = useHasMounted();
+
+  const cartCount = items.reduce((total, item) => total + item.mnozstvo, 0);
 
   return (
     <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
@@ -54,7 +57,7 @@ export default function Navbar() {
             className="relative p-2 hover:bg-gray-100 rounded-full transition"
           >
             <ShoppingCart className="h-6 w-6 text-gray-700" />
-            {cartCount > 0 && (
+            {mounted && cartCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-indigo-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
                 {cartCount}
               </span>
